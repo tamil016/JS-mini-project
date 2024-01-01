@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <style>
+    .cartimg {
+      height: 150px;
+      width: 250px;
+    }
+
+    .cards {
+      height: 550px;
+      margin-top: 20px;
+    }
+
+    .desce {
+      height: 100px;
+    }
+
+    .brnd {
+      height: 50px;
+    }
+
+    .searchBar {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 10px;
+    }
+
+    #getInput {
+      outline: none;
+      width: 550px;
+      text-indent: 20px;
+      border: 1px solid black;
+      font-size: 20px;
+    }
+
+    .changeInput {
+      border-radius: 20px;
+      height: 40px;
+    }
+
+    #btn {
+      width: 100px;
+      background-color: rgba(63, 103, 247, 0.895);
+      color: white;
+      border: none;
+    }
+    .addToCart{
+      text-decoration: none
+    }
+    .card_body{
+      color: black;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="Home.html"><img src="https://corporate.flipkart.net/assets/images/FKlogo.png" alt="" style="height: 60px;"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="Home.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="About.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="Product.html">Product</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="Contact.html">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="Cart.html">My Cart</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="searchBar">
+    <input type="search" placeholder="Search Product" class="changeInput" id="getInput">
+    <button id="btn" class="changeInput">Search</button>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row d-flex justify-content-between">
+      <div class="col-md-4 mt-5">
+        <br>
+
+        <h4 class="mt-5">Category</h4>
+        <select id="cat_Body">
+          <option value="All"> All </option>
+        </select>
+        <br>
+        <br>
+        <h4 class="mt-5">Brand</h4>
+        <select id="brand_Body">
+          <option value="All"> All </option>
+        </select>
+        <br>
+        <br>
+        <button class="btn btn-danger mt-5" id="clearBtn">Clear All</button>
+      </div>
+      <div class="col-md-8">
+        <div class="row" id="body" style="min-height: 100vh; max-width: 100%;">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="row">
+    <footer class="footer fixed-bottom bg-dark text-light text-center">
+      <p>&copy; 2023 Your Website. All rights reserved.</p>
+    </footer>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+  <script>
+    let body = document.getElementById('body')
+    let clearBtn = document.getElementById('clearBtn')
+    let brand_Body = document.getElementById('brand_Body')
+    let cat_Body = document.getElementById('cat_Body')
+    let getInput = document.getElementById('getInput')
+    let btn = document.getElementById('btn')
+
+    // let globalArr = []
+
+    // async function fetchData(){
+    //     let res = await fetch("https://dummyjson.com/products")
+    //     let data = await res.json()
+    //     globalArr = data.products
+    //     cartDisplay()
+    // }
+    // fetchData()
+
+
+    function getData() {
+      globalArr = localStorage.getItem('ecom') ? JSON.parse(localStorage.getItem('ecom')) : []
+    }
+    getData()
+
+    //console.log(globalArr)
+    cartDisplay(globalArr)
+    categoryGenerator()
+    brandGenerator()
+    //filterProducts()
+
+    function cartDisplay(arr) {
+      getData()
+      let template = ''
+
+      if (arr.length == 0) {
+        template += 'Processing Please wait...'
+      }
+      else {
+        arr.map((item) => {
+          template += `<div class= "col-md-4">
+                              <div class = "cards">
+                                <a href="" target="" class = "addToCart">
+                                  <div class = "card_body">
+                                    <div>
+                                      <img src = "${item.thumbnail}" class = "img-fluid cartimg"/>
+                                    </div>
+                                    <div>
+                                      <h3 class = "brnd"> Brand : ${item.brand}</h3>
+                                      <hr>
+                                      <p> Price : ${item.price}</p>
+                                      <p> Title : ${item.title}</p>
+                                      <p> Category : ${item.category}</p>
+                                      <p class = "desce"> Description : ${item.description}</p>
+                                      <hr>
+                                      <button class = "btn btn-primary">Add to cart</button>
+                                    </div>
+                                  </div>
+                                  </a>
+                              </div>
+                           </div>`
+        })
+      }
+      body.innerHTML = template;
+    }
+
+    btn.addEventListener("click", () => {
+      let inputValue = getInput.value.toLowerCase()
+      console.log(globalArr)
+      let filtering = globalArr.filter((data) =>
+        data.brand.toLowerCase().includes(inputValue)
+      )
+      cartDisplay(filtering)
+    })
+
+
+
+    // let options 
+    // globalArr.forEach((item) => {
+    //   options = document.createElement('option')
+    //     options.value = item.category
+    //     options.textContent = item.category
+    //    console.log(options)
+    // });
+
+
+
+
+    function categoryGenerator() {
+      let categoryData = globalArr.map((data) => {
+        return data.category
+      })
+      let uniqueCategory = [...new Set(categoryData)]
+      //cat_Body.appendChild = optionGenerator(uniqueCategory)
+      // console.log(uniqueCategory)
+      uniqueCategory.forEach((items) => {
+        options = document.createElement('option')
+        options.value = items
+        options.textContent = items
+        //console.log(options)
+        cat_Body.appendChild(options)
+      })
+    }
+
+
+    function brandGenerator() {
+      let brandCategory = globalArr.map((item) => {
+        return item.brand
+      });
+      let uniqueBrand = [... new Set(brandCategory)]
+      // console.log(uniqueBrand)
+      uniqueBrand.forEach((items) => {
+        options = document.createElement('option')
+        options.value = items
+        options.textContent = items
+        brand_Body.appendChild(options)
+      })
+      //brand_Body.appendChild = optionGenerator(uniqueBrand)
+    }
+
+
+    // function optionGenerator(data){
+    //    let options = ''
+    //   data.forEach((item) => {
+    //      options = document.createElement('option')
+    //     options.value = item
+    //     options.textContent = item
+    //     console.log(options)
+
+
+    //       // options += `<option value = ${item}> ${item} </option>
+    //       //             <option disabled> </option>`
+    //   });
+    //   return options
+    // }
+    // console.log(optionGenerator())
+
+    clearBtn.addEventListener('click', () => {
+      cartDisplay(globalArr)
+      cat_Body.value = 'All'
+      brand_Body.value = 'All'
+    })
+
+    cat_Body.addEventListener('change', ()=>{
+       filterCards()
+    });
+    brand_Body.addEventListener('change', ()=>{
+      filterCards()
+    });
+
+    function filterCards(){
+      let selectCategoryCard = cat_Body.value
+      //console.log(selectCategoryCard)
+      let selectBrandCard = brand_Body.value
+      //console.log(selectBrandCard)
+
+      if (selectCategoryCard === 'All' && selectBrandCard === 'All'){
+        cartDisplay(globalArr)
+      }
+      else{
+        let filteringCards = globalArr.filter((item)=>{
+            return((selectCategoryCard === 'All' || item.category === selectCategoryCard ) && 
+                    (selectBrandCard ==='All' || item.brand === selectBrandCard))
+        });
+        cartDisplay(filteringCards)
+      }
+    }
+
+  </script>
+</body>
+
+</html>

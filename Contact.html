@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        .content {
+            padding: 20px;
+        }
+
+        .form {
+            display: grid;
+            width: 400px;
+            margin: 20px;
+            border: 1px solid;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .getInput{
+            border-radius: 10px;
+            height: 35px;
+        }
+        #remarks{
+            height: 100px;
+        }
+
+        #btn {
+            width: 100px;
+            margin-left: 110px;
+            border-radius: 10px;
+        }
+        .main{
+            min-height: 100vh;
+        }
+        #usersDetails{
+            height: 250px;
+            width: 250px;
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="Home.html"><img src="https://corporate.flipkart.net/assets/images/FKlogo.png" alt="" style="height: 60px;"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="Home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="About.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="Product.html">Product</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="Contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="Cart.html">My Cart</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main">
+        <div class="content">
+            <h2>Flipkart Help Center | 24x7 Customer Care Support</h2>
+            <p>The Flipkart Help Centre page lists out various types of issues that you may have encountered so that
+                there
+                can be
+                quick resolution and you can go back to shopping online. For example, you can get more information
+                regarding
+                order
+                tracking, delivery date changes, help with returns (and refunds), and much more. The Flipkart Help
+                Centre
+                also lists
+                out more information that you may need regarding Flipkart Plus, payment, shopping, and more. The page
+                has
+                various
+                filters listed out on the left-hand side so that you can get your queries solved quickly, efficiently,
+                and
+                without a
+                hassle. You can get the Flipkart Help Centre number or even access Flipkart Help Centre support if you
+                need
+                professional help regarding various topics. The support executive will ensure speedy assistance so that
+                your
+                shopping experience is positive and enjoyable. You can even inform your loved ones of the support page
+                so
+                that they
+                can properly get their grievances addressed as well. Once you have all your queries addressed, you can
+                pull
+                out your
+                shopping list and shop for all your essentials in one place. You can shop during festive sales to get
+                your
+                hands on
+                some unbelievable deals online. This information is updated on Today.</p>
+        </div>
+
+
+        <div class="form">
+            <h3 class="formhead">Fill the form</h3>
+            <input type="text" class="getInput" placeholder="Enter User Name"><br>
+            <input type="Password" class="getInput" placeholder="Enter Password"><br>
+            <input type="Mobile Number" class="getInput" placeholder="Enter Mobile  Number"><br>
+            <input type="email" class="getInput" placeholder="Enter User Email"><br>
+            <input type="text" id="remarks" class="getInput" placeholder="Enter Remarks"><br>
+            <button id="btn">Submit</button>
+        </div>
+
+        <div id="usersDetails">
+
+        </div>
+    </div>
+
+    <div class="row">
+        <footer class="footer fixed-bottom bg-dark text-light text-center">
+            <p>&copy; 2023 Your Website. All rights reserved.</p>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <script>
+        let getInput = document.getElementsByClassName('getInput')
+        let btn = document.getElementById('btn')
+        let usersDetails = document.getElementById('usersDetails')
+
+        btn.addEventListener('click', (e) => {
+            e.preventDefault()
+            if (!getInput[0].value || !getInput[1].value || !getInput[2].value || !getInput[3].value || !getInput[4].value) {
+                alert('Fill the form first and then submit')
+            }
+            else {
+                let datas = `User name : ${getInput[0].value}
+                                    Password : ${getInput[1].value}
+                                    Mobile No : ${getInput[2].value}
+                                    Email Id : ${getInput[3].value}
+                                    Remarks : ${getInput[4].value}`
+
+                usersDetails.innerText = datas
+
+            }
+        })
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <style>
+            .cartImage{
+                height: 200px;
+            }
+            .desc{
+                height: 80px;
+            }
+        </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="Home.html"><img src="https://corporate.flipkart.net/assets/images/FKlogo.png" alt="" style="height: 60px;"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="Home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="About.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="Product.html">Product</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="Contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="Cart.html">My Cart</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="row d-flex justify-content-between align-item-center m-5">
+        <div class="col-md-6">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf0_R8b3WvLzlqe9oW5U7lGJH5nBUzUEYZQhIw1zYhgu9Jay-WDoxtDzhXM4QvE11Iu60&usqp=CAU"
+                class="img-fluid" width="500" height="300" />
+        </div>
+        <div class="col-md-6">
+            <h1>Welcome to our page</h1>
+            <br>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic asperiores ducimus itaque,
+                fuga laudantium odit! Exercitationem molestiae expedita necessitatibus.
+                Dolores quisquam eaque quia sequi maiores obcaecati minima adipisci distinctio suscipit!</p>
+            <br>
+            <a href="Product.html"><button class="btn btn-primary" >Let's Shop</button></a></div></div>
+        </div>
+    </div>
+
+    <div class="row d-flex justify-content-between" id="cartBody" style="min-height: 100vh; max-width: 100%;">
+
+    </div>
+
+
+    <div class="row">
+        <footer class="footer fixed-bottom bg-dark text-light text-center">
+            <p>&copy; 2023 Your Website. All rights reserved.</p>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+        </script>
+
+
+    <script>
+        let cartBody = document.getElementById("cartBody")
+        let globalArr = []
+
+        async function fetchData() {
+            let res = await fetch("https://dummyjson.com/products")
+            let data = await res.json()
+            //console.log(data.products)
+            globalArr = data.products
+            //console.log(globalArr)
+            cartDisplay()
+        }
+        fetchData()
+
+        function cartDisplay() {
+            setData(globalArr)
+            let template = ''
+            if (globalArr.length == 0) {
+                template += "Processing please wait"
+            }
+            else {
+                globalArr = globalArr.slice(0,4)
+                globalArr.map((item) => {
+                    template += `<div class="col-md-3" > 
+                                    <div class = "card">
+                                        <div class = "card-body">
+                                            <div>
+                                                <img src = "${item.thumbnail}" class = "img-fluid cartImage"/>
+                                            </div>
+                                            <div>
+                                                <h3> Brand : ${item.brand}</h3>
+                                                <hr>
+                                                <p> Price : ${item.price}</p>
+                                                <p> Title : ${item.title}</p>
+                                                <p> Category : ${item.category}</p>
+                                                <p class = "desc"> Description : ${item.description}</p>
+                                                <hr>
+                                                <button class = "btn btn-primary">Add to cart</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>`
+                })
+            }
+            cartBody.innerHTML = template
+        }
+
+        function setData(data){
+            localStorage.setItem('ecom',JSON.stringify(data))
+        }
+        
+
+
+
+    </script>
+
+</body>
+
+</html>
